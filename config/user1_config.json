@@ -1,0 +1,16 @@
+{
+  "unicast": "127.0.0.1",
+  
+   "logging": {
+    "level": "none",
+    "console": false
+  },
+  "applications": [{ "name": "chat_user1", "id": 1 }],
+  "services": [
+    {
+      "service": "0x1111",
+      "instance": "0x1000",
+      "unreliable": { "port": "30511" }
+    }
+  ]
+}
