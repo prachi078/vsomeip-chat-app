@@ -63,3 +63,79 @@ int main() {
     app_thread.join();
     return 0;
 }
+
+
+// cd ~/Documents/chat_app/build-arm64
+//     rm -rf *
+//     cmake ..   -DCMAKE_TOOLCHAIN_FILE=../toolchain-arm64.cmake   -DCMAKE_PREFIX_PATH=$HOME/vscode/vsomeip-arm64/install   -DCMAKE_FIND_ROOT_PATH=$HOME/vscode/vsomeip-arm64/install   -DCMAKE_SKIP_RPATH=ON   -DBOOST_ROOT=$HOME/vscode/boost/boost-arm64   -DBoost_NO_SYSTEM_PATHS=ON
+//     make -j$(nproc)
+//     make
+//     file chat_user1
+
+
+//  1. Clone vSomeIP (with submodules)
+
+// cd ~/vscode
+// git clone --recurse-submodules https://github.com/COVESA/vsomeip.git vsomeip-arm64
+
+//  2. Build Boost for ARM64 (if not already built)
+
+// (optional but recommended if Boost not installed for ARM64)
+
+// cd ~/vscode/boost/boost_1_76_0
+
+// ./bootstrap.sh
+
+// echo "using gcc : arm : aarch64-linux-gnu-g++ ;" > user-config.jam
+
+// ./b2 \
+//   toolset=gcc-arm \
+//   target-os=linux \
+//   architecture=arm \
+//   address-model=64 \
+//   --prefix=../boost-arm64 \
+//   --with-system --with-thread --with-filesystem \
+//   --user-config=./user-config.jam \
+//   install
+
+//  3. Build vSomeIP for ARM64
+
+// cd ~/vscode/vsomeip-arm64
+// mkdir build-arm64 && cd build-arm64
+
+// cmake .. \
+//   -DCMAKE_TOOLCHAIN_FILE=../toolchain-arm64.cmake \
+//   -DCMAKE_INSTALL_PREFIX=~/vscode/vsomeip-arm64/install \
+//   -DBOOST_ROOT=~/vscode/boost/boost-arm64 \
+//   -DBoost_NO_SYSTEM_PATHS=ON
+
+// make -j$(nproc)
+// make install
+
+//  4. Build Your Chat App for ARM64
+
+// cd ~/Documents/chat_app
+// mkdir build-arm64 && cd build-arm64
+
+// cmake .. \
+//   -DCMAKE_TOOLCHAIN_FILE=../toolchain-arm64.cmake \
+//   -DCMAKE_PREFIX_PATH=~/vscode/vsomeip-arm64/install \
+//   -DBOOST_ROOT=~/vscode/boost/boost-arm64 \
+//   -DBoost_NO_SYSTEM_PATHS=ON
+
+
+// make -j$(nproc)
+// make install
+
+//  4. Build Your Chat App for ARM64
+
+// cd ~/Documents/chat_app
+// mkdir build-arm64 && cd build-arm64
+
+// cmake .. \
+//   -DCMAKE_TOOLCHAIN_FILE=../toolchain-arm64.cmake \
+//   -DCMAKE_PREFIX_PATH=~/vscode/vsomeip-arm64/install \
+//   -DBOOST_ROOT=~/vscode/boost/boost-arm64 \
+//   -DBoost_NO_SYSTEM_PATHS=ON
+
+// make -j$(nproc)
